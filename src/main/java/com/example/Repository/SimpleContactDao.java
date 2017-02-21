@@ -4,6 +4,7 @@ import com.example.Model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by jing on 2017/2/20.
  */
+@Component
 @Repository
 public class SimpleContactDao implements ContactDao {
     private JdbcTemplate jdbcTemplate;
@@ -24,8 +26,7 @@ public class SimpleContactDao implements ContactDao {
 
     @Override
     public List<Contact> getAll() {
-        String sql = "select id, firstName, lastName, phoneNumber, emailAddress" +
-                "from contacts order by lastName";
+        String sql = "select * from contacts";
         return jdbcTemplate.query(sql, new ContactMapper());
     }
 
@@ -33,7 +34,7 @@ public class SimpleContactDao implements ContactDao {
     public void save(Contact contact) {
         String sql = "insert into contacts" +
                 "(firstName, lastName, phoneNumber, emailAddress)" +
-                "value(?, ?, ?, ?)";
+                "values(?, ?, ?, ?)";
         jdbcTemplate.update(sql, contact.getFirstName(), contact.getLastName(),
                 contact.getPhoneNumber(), contact.getEmailAddress());
 
@@ -49,6 +50,7 @@ public class SimpleContactDao implements ContactDao {
             contact.setLastName(resultSet.getString("lastName"));
             contact.setPhoneNumber(resultSet.getString("phoneNumber"));
             contact.setEmailAddress(resultSet.getString("emailAddress"));
+
             return contact;
         }
     }

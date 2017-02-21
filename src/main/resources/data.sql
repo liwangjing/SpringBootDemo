@@ -1,0 +1,2 @@
+INSERT INTO contacts (id, firstName, lastName, phoneNumber, emailAddress) VALUES (1, 'Jung Seok', 'Cho', '3120001234', 'jungseok@gmail.com');
+-- INSERT INTO contacts VALUES (1, 'Jung Seok', 'Cho', '3124504099', 'jungseok@gmail.com'); -- this command works too
